@@ -14,7 +14,6 @@ environment {
     }
     stage('Compile Package and Create war file') {
       steps { 
-         sh "cd /home/ubuntu"
         sh "mvn package"
       }
     }
