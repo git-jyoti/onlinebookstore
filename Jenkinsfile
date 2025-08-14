@@ -5,7 +5,7 @@ environment {
    VERSION = "${env.BUILD_ID}-${env.GIT_COMMIT}"
    IMAGE = "${NAME}:${VERSION}"
    IMAGE_REPO="jyotipmohapatra"
-   IMAGE_URL='hub.docker.com'
+   IMAGE_URL='app.docker.com'
    
 }   
 
