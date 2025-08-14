@@ -31,7 +31,7 @@ environment {
     } 
      stage('Push result image') {
       steps {
-        withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+        withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'dockerHubPassword', usernameVariable: 'docker.io')]) {
           sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
           sh "docker push ${IMAGE_REPO}/${NAME}:${VERSION}"
            
