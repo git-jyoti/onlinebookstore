@@ -46,7 +46,7 @@ stage('Integrate Jenkins with EKS Cluster and Deploy App') {
                     sh "echo ${IMAGE_URL}/${IMAGE_REPO}/${NAME}:${VERSION}"
                     //sh 'envsubst < k8s-specifications/|kubectl apply -f -'
                     
-                    sh "kubectl apply -f k8s-specifications/"
+                    sh "kubectl apply -f k8s-specifications/ --validate=false"
                      sh 'kubectl set image deployments/onlinebookstore onlinebookstore-container=${IMAGE_REPO}/${NAME}:${VERSION}'
                    
                    
