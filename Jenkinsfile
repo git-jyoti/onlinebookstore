@@ -38,21 +38,18 @@ environment {
         }
       }
     }
-stage('Integrate Jenkins with EKS Cluster and Deploy App') {
-            steps {
-                withAWS(credentials: 'aws', region: 'ap-south-1') {
+     stage('Integrate Jenkins with EKS Cluster and Deploy App') {
+       steps {
+                withCredentials(credentials: 'aws', region: 'ap-south-1') {
                   script {
-                    sh ('aws eks update-kubeconfig --name ekscluster-cluster --region ap-south-1')
+                   sh "withCredentials([secretFile(credentialsId: 'kubeconfig-file', variable: 'kubeconfig')])"
+                  sh ('aws eks update-kubeconfig --name ekscluster-cluster --region ap-south-1')
                     sh "echo ${IMAGE_URL}/${IMAGE_REPO}/${NAME}:${VERSION}"
-                    //sh 'envsubst < k8s-specifications/|kubectl apply -f -'
-                    //sh "kubectl apply -f k8s-specifications/"
-                    sh "kubectl --kubeconfig="${kubeconfig}" apply -f k8s-specifications/"
+                   sh "kubectl --kubeconfig="${kubeconfig-file}" apply -f k8s-specifications/"
                     //sh 'kubectl set image deployments/onlinebookstore onlinebookstore-container=${IMAGE_REPO}/${NAME}:${VERSION}'
-                   
-                   
                 }
-            }
-        }
     }
   }
+}
+}
 }
