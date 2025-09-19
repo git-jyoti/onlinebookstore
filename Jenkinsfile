@@ -40,7 +40,7 @@ environment {
     }
      stage('Integrate Jenkins with EKS Cluster and Deploy App') {
        steps {
-                withCredentials(credentials: 'aws', region: 'ap-south-1') {
+                withAWS(credentials: 'aws', region: 'ap-south-1') {
                   script {
                    sh "withCredentials([secretFile(credentialsId: 'kubeconfig-file', variable: 'kubeconfig')])" {
                   sh ('aws eks update-kubeconfig --name ekscluster-cluster --region ap-south-1')
