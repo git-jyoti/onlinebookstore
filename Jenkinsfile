@@ -45,8 +45,9 @@ stage('Integrate Jenkins with EKS Cluster and Deploy App') {
                     sh ('aws eks update-kubeconfig --name ekscluster-cluster --region ap-south-1')
                     sh "echo ${IMAGE_URL}/${IMAGE_REPO}/${NAME}:${VERSION}"
                     //sh 'envsubst < k8s-specifications/|kubectl apply -f -'
-                    sh "kubectl apply -f k8s-specifications/ --validate=false"
-                    sh 'kubectl set image deployments/onlinebookstore onlinebookstore-container=${IMAGE_REPO}/${NAME}:${VERSION}'
+                    //sh "kubectl apply -f k8s-specifications/"
+                    sh "kubectl --kubeconfig="${KUBECONFIG_FILE}" apply -f k8s-specifications/"
+                    //sh 'kubectl set image deployments/onlinebookstore onlinebookstore-container=${IMAGE_REPO}/${NAME}:${VERSION}'
                    
                    
                 }
