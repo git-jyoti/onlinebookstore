@@ -38,6 +38,24 @@ environment {
         }
       }
     }
+     stage('Create EKS Access Entry') {
+    steps {
+        withAWS(credentials: 'aws', region: 'ap-south-1') {
+            script {
+                def clusterName = 'poc-cluster'
+                def principalArn = 'arn:aws:iam::507652761674:role/JenkinsEKSRole' // Replace with your IAM role ARN
+                def accessPolicyArn = 'arn:aws:eks::aws:policy/AmazonEKSClusterAdminPolicy'
+
+                sh """
+                    aws eks create-access-entry \
+                      --cluster-name ${clusterName} \
+                      --principal-arn ${principalArn} \
+                      --access-policy-arn ${accessPolicyArn}
+                """
+            }
+        }
+    }
+}
    stage('Integrate Jenkins with EKS Cluster and Deploy App') {
     steps {
         withAWS(credentials: 'aws', region: 'ap-south-1') {
