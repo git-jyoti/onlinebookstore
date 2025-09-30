@@ -38,16 +38,30 @@ environment {
         }
       }
     }
-stage('Deploy to EKS') {
-  steps {
-    withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-      sh '''
-        kubectl config get-contexts
-        kubectl get nodes
-        //kubectl apply -f k8s/deployment.yaml
-      '''
+   stage('Integrate Jenkins with EKS Cluster and Deploy App') {
+    steps {
+        withAWS(credentials: 'aws', region: 'ap-south-1') {
+         script {
+               // Update kubeconfig to connect to EKS
+               sh 'aws eks update-kubeconfig --name eks-cluster --region ap-south-1'
+               withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                 sh '''
+                   kubectl config get-contexts
+                   kubectl get nodes
+                '''
+          }       
+
+                // Print image URL for debugging
+                sh 'echo ${IMAGE_URL}/${IMAGE_REPO}/${NAME}:${VERSION}'
+
+                // Apply Kubernetes manifests
+                sh 'kubectl apply -f k8s-specifications/'
+
+                // Update deployment image
+                sh 'kubectl set image deployment/onlinebookstore onlinebookstore-container=${IMAGE_REPO}/${NAME}:${VERSION}'
+            }
+        }
     }
-  }
 }
 }
 }
