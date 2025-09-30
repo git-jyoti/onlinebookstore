@@ -46,7 +46,8 @@ environment {
                 sh 'aws eks update-kubeconfig --name eks-cluster --region ap-south-1'
 
                 // Optional: Confirm connection
-                sh 'kubectl get nodes -v=10'
+              sh 'kubectl get nodes'
+              
 
                 // Print image URL for debugging
                 sh 'echo ${IMAGE_URL}/${IMAGE_REPO}/${NAME}:${VERSION}'
