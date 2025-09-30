@@ -43,7 +43,7 @@ environment {
         withAWS(credentials: 'aws', region: 'ap-south-1') {
             script {
                 // Update kubeconfig to connect to EKS
-                sh 'aws eks update-kubeconfig --name poc-cluster --region ap-south-1'
+                sh 'aws eks update-kubeconfig --name eks-cluster --region ap-south-1'
 
                 // Optional: Confirm connection
                 sh 'kubectl get nodes'
