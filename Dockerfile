@@ -1,5 +1,5 @@
 FROM tomcat:8.0.43-jre8
-MAINTAINER Hemant
+MAINTAINER Jyoti
 RUN mkdir /home/app
 WORKDIR /home/app
 COPY ./target/*.war /usr/local/tomcat/webapps/
