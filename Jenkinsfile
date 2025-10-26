@@ -12,7 +12,8 @@ environment {
   stages {
     stage('Cloning Git') {
       steps {
-      git branch: 'main', url: 'https://github.com/git-jyoti/onlinebookstore.git'
+      //git branch: 'main', url: 'https://github.com/git-jyoti/onlinebookstore.git'
+        git 'https://github.com/git-jyoti/onlinebookstore.git'
       }
     }
     stage('Compile Package and Create war file') {
