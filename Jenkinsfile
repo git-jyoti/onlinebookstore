@@ -1,7 +1,7 @@
 pipeline {
    agent any
 environment { 
-   NAME = "onlinebookstore"
+   NAME = "onlinebookstore1"
    VERSION = "${env.BUILD_ID}-${env.GIT_COMMIT}"
    IMAGE = "${NAME}:${VERSION}"
    IMAGE_REPO="jyotipmohapatra"
