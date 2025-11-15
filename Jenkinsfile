@@ -23,9 +23,7 @@ environment {
       steps { 
         sh "mvn package"
       }
-    }
- }
-
+	}
    stage('Build result') {
      steps {
             echo "Running ${VERSION} on ${env.JENKINS_URL}"
@@ -44,4 +42,5 @@ environment {
         }
       }
     }
+  }
 }
