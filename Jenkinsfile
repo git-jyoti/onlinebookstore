@@ -1,7 +1,7 @@
 pipeline {
    agent any
    tools {
-    maven 'maven-3.6.3'  // Matches the name in Global Tool Configuration
+    maven 'maven'  // Matches the name in Global Tool Configuration
   }
 environment { 
    NAME = "jenkinspipelineforonlinebookstore"
