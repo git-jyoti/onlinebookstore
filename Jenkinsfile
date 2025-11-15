@@ -1,7 +1,7 @@
 pipeline {
    agent any
 environment { 
-   NAME = "onlinebookstore1"
+   NAME = "jenkinspipelineforonlinebookstore"
    VERSION = "${env.BUILD_ID}-${env.GIT_COMMIT}"
    IMAGE = "${NAME}:${VERSION}"
    IMAGE_REPO="jyotipmohapatra"
