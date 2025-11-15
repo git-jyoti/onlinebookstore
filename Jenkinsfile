@@ -30,7 +30,7 @@ environment {
             //git branch: "${env.BRANCH_NAME}", url: 'https://github.com/Hemantakumarpati/OnlineBookStore.git'
             //echo "for brnach ${env.BRANCH_NAME}"
             sh "docker build -t ${NAME} ."
-            sh "docker tag ${NAME}:latest ${IMAGE_REPO}/${NAME}:${VERSION}"
+            sh "docker tag ${NAME}:${IMAGE_REPO}/${NAME}:${VERSION}"
         }
     } 
    stage('Push result image') {
