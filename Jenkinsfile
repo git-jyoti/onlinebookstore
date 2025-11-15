@@ -1,5 +1,8 @@
 pipeline {
    agent any
+   tools {
+    maven 'maven-3.6.3'  // Matches the name in Global Tool Configuration
+  }
 environment { 
    NAME = "jenkinspipelineforonlinebookstore"
    VERSION = "${env.BUILD_ID}-${env.GIT_COMMIT}"
