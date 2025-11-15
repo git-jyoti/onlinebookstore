@@ -4,7 +4,7 @@ pipeline {
     maven 'maven'  // Matches the name in Global Tool Configuration
   }
 environment { 
-   NAME = "jenkinspipelineforonlinebookstore"
+   NAME = "onlinebookstore"
    VERSION = "${env.BUILD_ID}-${env.GIT_COMMIT}"
    IMAGE = "${NAME}:${VERSION}"
    IMAGE_REPO="jyotipmohapatra"
