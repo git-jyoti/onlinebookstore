@@ -51,7 +51,7 @@ environment {
                     //sh 'envsubst < k8s-specifications/|kubectl apply -f -'
                     
                     sh "kubectl apply -f k8s-specifications/"
-                    // sh 'kubectl set image deployments/onlinebookstore onlinebookstore-container=${IMAGE_REPO}/${NAME}:${VERSION}'
+                    sh 'kubectl set image deployments/onlinebookstore onlinebookstore-container=${IMAGE_REPO}/${NAME}:${VERSION}'
                    
                  }
                 }
