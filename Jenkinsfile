@@ -52,7 +52,7 @@ environment {
                     
                     sh "kubectl apply -f k8s-specifications/deployment.yml"
 					sh "kubectl apply -f k8s-specifications/service.yml"
-                    sh 'kubectl set image deployments/onlinebookstore onlinebookstore-container=${IMAGE_REPO}/${NAME}:${VERSION}'
+                    //sh 'kubectl set image deployments/onlinebookstore onlinebookstore-container=${IMAGE_REPO}/${NAME}:${VERSION}'
                    
                    
                 }
