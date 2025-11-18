@@ -42,28 +42,22 @@ environment {
         }
       }
     }
-   stage('Deploy to EKS') {
-  steps {
-    withAWS(credentials: 'aws', region: 'ap-south-1') {
-      script {
-        // Update kubeconfig
-        sh 'aws eks update-kubeconfig --name eksdemo1 --region ap-south-1'
-
-        // Confirm image
-        sh "echo Deploying image: ${IMAGE_URL}/${IMAGE_REPO}/${NAME}:${VERSION}"
-
-        // Inject image into manifest using envsubst
-        sh '''
-          export IMAGE=${IMAGE_URL}/${IMAGE_REPO}/${NAME}:${VERSION}
-          envsubst < k8s-specifications/deployment.yml | kubectl apply -f -
-        '''
-
-        // Optional: rollout status and pod check
-        sh 'kubectl rollout status deployment/onlinebookstore'
-        sh 'kubectl get pods -l app=onlinebookstore -o wide'
-      }
+     stage('Integrate Jenkins with EKS Cluster and Deploy App') {
+            steps {
+                withAWS(credentials: 'aws', region: 'us-east-1') {
+                  script {
+                    sh ('aws eks update-kubeconfig --name poc-cluster --region us-east-1')
+                    sh "echo ${IMAGE_URL}/${IMAGE_REPO}/${NAME}:${VERSION}"
+                    //sh 'envsubst < k8s-specifications/|kubectl apply -f -'
+                    
+                    sh "kubectl apply -f k8s-specification/deployment.yml"
+					sh "kubectl apply -f k8s-specification/service.yml"
+                    //sh 'kubectl set image deployments/onlinebookstore onlinebookstore-container=${IMAGE_REPO}/${NAME}:${VERSION}'
+                   
+                   
+                }
+                }
+        }
     }
-  }
-}
 }
 }
