@@ -44,7 +44,7 @@ environment {
     }
    stage('Deploy to EKS') {
   steps {
-    withAWS(credentials: 'aws', region: 'us-east-1') {
+    withAWS(credentials: 'aws', region: 'ap-south-1') {
       script {
         // Update kubeconfig
         sh 'aws eks update-kubeconfig --name eksdemo1 --region ap-south-1'
