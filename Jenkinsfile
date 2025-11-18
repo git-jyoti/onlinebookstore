@@ -46,7 +46,7 @@ environment {
             steps {
                 withAWS(credentials: 'aws', region: 'ap-south-1') {
                   script {
-                    sh ('aws eks update-kubeconfig --name poc-cluster --region ap-south-1')
+                    sh ('aws eks update-kubeconfig --name eksdemo1 --region ap-south-1')
                     sh "echo ${IMAGE_URL}/${IMAGE_REPO}/${NAME}:${VERSION}"
                     //sh 'envsubst < k8s-specifications/|kubectl apply -f -'
                     
