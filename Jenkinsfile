@@ -24,6 +24,7 @@ environment {
         sh "mvn package"
       }
 	}
+<<<<<<< HEAD
    stage('Build result') {
      steps {
             echo "Running ${VERSION} on ${env.JENKINS_URL}"
@@ -44,6 +45,8 @@ environment {
     }
 <<<<<<< HEAD
 
+=======
+>>>>>>> test2
 }
 =======
    }
