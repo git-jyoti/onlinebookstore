@@ -1,13 +1,10 @@
-upipeline {
+pipeline {
    agent any
-   tools {
-    maven 'maven'  // Matches the name in Global Tool Configuration
-  }
 environment { 
    NAME = "onlinebookstore"
    VERSION = "${env.BUILD_ID}-${env.GIT_COMMIT}"
    IMAGE = "${NAME}:${VERSION}"
-   IMAGE_REPO="jyotipmohapatra"
+   IMAGE_REPO="hemantakumarpati"
    IMAGE_URL='hub.docker.com'
    
 }   
@@ -15,15 +12,31 @@ environment {
   stages {
     stage('Cloning Git') {
       steps {
-      //git branch: 'main', url: 'https://github.com/git-jyoti/onlinebookstore.git'
-        git url:'https://github.com/git-jyoti/onlinebookstore.git', branch: 'main'
+        git 'https://github.com/Hemantakumarpati/OnlineBookStore.git'
       }
     }
     stage('Compile Package and Create war file') {
-      steps { 
+      steps {
         sh "mvn package"
       }
-	}
+    }
+    //stage('Integration tests') {
+               // Run integration test
+      //         steps {
+        //           script {
+          //             def mvnHome = tool '3.6.3'
+            //           if (isUnix()) {
+              //             // just to trigger the integration test without unit testing
+                //           sh "'${mvnHome}/bin/mvn'  verify -Dunit-tests.skip=true"
+                  //     } else {
+                    //       bat(/"${mvnHome}\bin\mvn" verify -Dunit-tests.skip=true/)
+                     //  }
+   
+                   //}
+                   // cucumber reports collection
+                   //cucumber buildStatus: null, fileIncludePattern: '**/cucumber.json', jsonReportDirectory: 'target', sortingMethod: 'ALPHABETICAL'
+               //}
+           //}
    stage('Build result') {
      steps {
             echo "Running ${VERSION} on ${env.JENKINS_URL}"
@@ -42,7 +55,22 @@ environment {
         }
       }
     }
-   }
- }
 
-
+   stage('Integrate Jenkins with EKS Cluster and Deploy App') {
+            steps {
+                withAWS(credentials: 'aws', region: 'us-east-1') {
+                  script {
+                    sh ('aws eks update-kubeconfig --name poc-cluster --region us-east-1')
+                    sh "echo ${IMAGE_URL}/${IMAGE_REPO}/${NAME}:${VERSION}"
+                    //sh 'envsubst < k8s-specifications/|kubectl apply -f -'
+                    
+                    sh "kubectl apply -f k8s-specifications/"
+                     sh 'kubectl set image deployments/onlinebookstore onlinebookstore-container=${IMAGE_REPO}/${NAME}:${VERSION}'
+                   
+                   
+                }
+                }
+        }
+    }  
+}
+}
