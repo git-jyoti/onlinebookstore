@@ -1,4 +1,4 @@
-pipeline {
+upipeline {
    agent any
    tools {
     maven 'maven'  // Matches the name in Global Tool Configuration
@@ -42,6 +42,11 @@ environment {
         }
       }
     }
+<<<<<<< HEAD
 
 }
+=======
+   }
+>>>>>>> test2
 }
+
