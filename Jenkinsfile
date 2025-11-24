@@ -56,7 +56,7 @@ environment {
       }
     }
 
-   stage('Integrate Jenkins with EKS Cluster and Deploy App') {
+  //* stage('Integrate Jenkins with EKS Cluster and Deploy App') {
             steps {
                 withAWS(credentials: 'aws', region: 'us-east-1') {
                   script {
@@ -71,6 +71,6 @@ environment {
                 }
                 }
         }
-    }  
+    }  */
 }
 }
