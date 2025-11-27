@@ -56,21 +56,5 @@ environment {
       }
     }
 
-   stage('Integrate Jenkins with EKS Cluster and Deploy App') {
-            steps {
-                withAWS(credentials: 'aws', region: 'us-east-1') {
-                  script {
-                    sh ('aws eks update-kubeconfig --name poc-cluster --region us-east-1')
-                    sh "echo ${IMAGE_URL}/${IMAGE_REPO}/${NAME}:${VERSION}"
-                    //sh 'envsubst < k8s-specifications/|kubectl apply -f -'
-                    
-                    sh "kubectl apply -f k8s-specifications/"
-                     sh 'kubectl set image deployments/onlinebookstore onlinebookstore-container=${IMAGE_REPO}/${NAME}:${VERSION}'
-                   
-                   
-                }
-                }
-        }
-    }  
-}
+  }
 }
