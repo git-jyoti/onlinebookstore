@@ -69,6 +69,7 @@ environment {
         gcloud container clusters get-credentials standard-public-cluster-1 --zone asia-south1
 
         kubectl apply -f k8s-specifications/
+        kubectl set image deployments/onlinebookstore onlinebookstore-container=${IMAGE_REPO}/${NAME}:${VERSION}
     """
 }
 }
