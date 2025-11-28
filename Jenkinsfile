@@ -58,5 +58,19 @@ environment {
         }
       }
     } 
+     stage('Deploy to GKE') {
+    steps {
+        withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+
+    sh """
+        gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
+        gcloud config set project clever-tracker-479504-p2
+        gcloud container clusters get-credentials standard-public-cluster-1 --zone asia-south1
+
+        kubectl apply -f k8s-specifications/
+    """
+}
+}
+}
 }
 }
