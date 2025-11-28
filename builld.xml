@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="onlinebookstore" default="package" basedir=".">
+
+    <!-- ===========================
+         Properties
+    ============================ -->
+    <property name="src.dir"     value="src"/>
+    <property name="web.dir"     value="WebContent"/>
+    <property name="build.dir"   value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="lib.dir"     value="lib"/>
+    <property name="dist.dir"    value="dist"/>
+    <property name="war.name"    value="onlinebookstore.war"/>
+    <property name="tomcat.home" value="/opt/tomcat"/> <!-- adjust path -->
+
+    <!-- ===========================
+         Classpath
+    ============================ -->
+    <path id="project.classpath">
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <!-- ===========================
+         Targets
+    ============================ -->
+
+    <!-- Clean -->
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+    </target>
+
+    <!-- Compile -->
+    <target name="compile" depends="clean">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false">
+            <classpath refid="project.classpath"/>
+        </javac>
+    </target>
+
+    <!-- Unit Tests (JUnit) -->
+    <target name="test" depends="compile">
+        <mkdir dir="${build.dir}/test-reports"/>
+        <junit printsummary="yes" haltonfailure="true">
+            <classpath>
+                <pathelement path="${classes.dir}"/>
+                <path refid="project.classpath"/>
+            </classpath>
+            <formatter type="xml"/>
+            <batchtest todir="${build.dir}/test-reports">
+                <fileset dir="${src.dir}">
+                    <include name="**/*Test.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+    <!-- Package WAR -->
+    <target name="package" depends="test">
+        <mkdir dir="${dist.dir}"/>
+        <war destfile="${dist.dir}/${war.name}" webxml="${web.dir}/WEB-INF/web.xml">
+            <fileset dir="${web.dir}"/>
+            <lib dir="${lib.dir}"/>
+            <classes dir="${classes.dir}"/>
+        </war>
+    </target>
+
+    <!-- Deploy to Tomcat -->
+    <target name="deploy" depends="package">
+        <copy file="${dist.dir}/${war.name}" todir="${tomcat.home}/webapps"/>
+        <echo message="Deployed ${war.name} to Tomcat at ${tomcat.home}/webapps"/>
+    </target>
+
+</project>
