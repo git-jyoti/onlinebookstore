@@ -9,8 +9,10 @@ environment {
    IMAGE = "${NAME}:${VERSION}"
    IMAGE_REPO="jyotipmohapatra"
    IMAGE_URL='hub.docker.com'
-   
-}   
+   PROJECT_ID  = "clever-tracker-479504-p2"
+   CLUSTER     = "standard-public-cluster-1"
+   ZONE        = "asia-south1-a"
+   }   
   stages {
     stage('Cloning Git') {
       steps {
