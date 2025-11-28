@@ -11,11 +11,10 @@ environment {
    IMAGE_URL='hub.docker.com'
    
 }   
-
   stages {
     stage('Cloning Git') {
       steps {
-        git 'https://github.com/Hemantakumarpati/OnlineBookStore.git'
+        git 'https://github.com/git-jyoti/onlinebookstore.git'
       }
     }
     stage('Compile Package and Create war file') {
@@ -43,7 +42,7 @@ environment {
    stage('Build result') {
      steps {
             echo "Running ${VERSION} on ${env.JENKINS_URL}"
-            //git branch: "${env.BRANCH_NAME}", url: 'https://github.com/Hemantakumarpati/OnlineBookStore.git'
+            //git branch: "${env.BRANCH_NAME}", url: 'https://github.com/git-jyoti/onlinebookstore.git'
             //echo "for brnach ${env.BRANCH_NAME}"
             sh "docker build -t ${NAME} ."
             sh "docker tag ${NAME}:latest ${IMAGE_REPO}/${NAME}:${VERSION}"
