@@ -1,5 +1,8 @@
 pipeline {
    agent any
+   tools {
+      maven 'maven'
+   }
 environment { 
    NAME = "onlinebookstore"
    VERSION = "${env.BUILD_ID}-${env.GIT_COMMIT}"
