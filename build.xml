@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="onlinebookstore" default="package" basedir=".">
+<project name="onlinebookstore-antbuild" default="package" basedir=".">
 
     <!-- ===========================
          Properties
@@ -72,5 +72,6 @@
         <copy file="${dist.dir}/${war.name}" todir="${tomcat.home}/webapps"/>
         <echo message="Deployed ${war.name} to Tomcat at ${tomcat.home}/webapps"/>
     </target>
+
 
 </project>
