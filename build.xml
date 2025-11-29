@@ -10,7 +10,7 @@
     <property name="classes.dir" value="${build.dir}/classes"/>
     <property name="lib.dir"     value="lib"/>
     <property name="dist.dir"    value="dist"/>
-    <property name="war.name"    value="onlinebookstore.war"/>
+    <property name="war.name"    value="onlinebookstore-antbuild.war"/>
     <property name="tomcat.home" value="/opt/tomcat"/> <!-- adjust path -->
 
     <!-- ===========================
@@ -75,3 +75,4 @@
 
 
 </project>
+
