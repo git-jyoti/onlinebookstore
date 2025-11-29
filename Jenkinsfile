@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment {
-        APP_NAME   = 'OnlineBookstore'
+        APP_NAME   = 'onlinebookstore-antbuild'
         BUILD_DIR  = 'build'
         DIST_DIR   = 'dist'
     }
@@ -59,7 +59,7 @@ pipeline {
 
         stage('Deploy (Optional)') {
             when {
-                branch 'main'
+                branch 'branch1'
             }
             steps {
                 echo "Deploying ${APP_NAME} build from ${DIST_DIR}..."
